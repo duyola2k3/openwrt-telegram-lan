@@ -81,12 +81,22 @@ $(interface_report eth0 'Ethernet adapter')
 $(interface_report usb0 'WAN / USB modem')
 IPv4: $(ipv4 usb0)"
 
+telegram_post() {
+    payload="$1"
+    # uclient-fetch thường có sẵn trên OpenWrt và xử lý HTTPS tốt hơn
+    # BusyBox wget trên một số bản build.
+    if command -v uclient-fetch >/dev/null 2>&1; then
+        uclient-fetch -q -O - --post-data="$payload" "$API" 2>&1
+    else
+        wget -qO- --no-check-certificate --post-data="$payload" "$API" 2>&1
+    fi
+}
+
 failed=0
 for chat_id in $CHAT_IDS; do
     [ -n "$chat_id" ] || continue
-    result=$(wget -qO- --no-check-certificate \
-        --post-data="chat_id=$(urlencode "$chat_id")&text=$(urlencode "$message")" \
-        "$API" 2>/dev/null)
+    result=$(telegram_post \
+        "chat_id=$(urlencode "$chat_id")&text=$(urlencode "$message")")
 
     case "$result" in
         *'"ok":true'*) echo "Đã gửi Telegram đến $chat_id" ;;
