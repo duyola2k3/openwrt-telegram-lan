@@ -1,0 +1,7 @@
+# Đổi tên thành /etc/telegram-lan.conf trên router.
+# Không chia sẻ file này sau khi điền token.
+BOT_TOKEN='123456789:THAY_BANG_TOKEN_BOTFATHER'
+# Nhiều ID cách nhau bằng dấu cách. Có thể là user, group hoặc channel.
+CHAT_IDS='123456789 -1009876543210'
+# Nếu chỉ có một chat, có thể dùng cách cũ:
+# CHAT_ID='123456789'
