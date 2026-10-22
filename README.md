@@ -2,6 +2,16 @@
 
 Tool này gửi báo cáo định kỳ qua Telegram cho các giao diện `br-lan`, `eth0` và `usb0`, gồm trạng thái, MAC, RX/TX, số packet, uptime, IPv4 và IPv6.
 
+## Cài đặt nhanh bằng một lệnh
+
+Trên OpenWrt chạy:
+
+```sh
+wget -O- https://raw.githubusercontent.com/duyola2k3/openwrt-telegram-lan/main/install.sh | sh
+```
+
+Trình cài đặt sẽ hỏi `BOT_TOKEN` và một hoặc nhiều `CHAT_IDS`, cài script, tạo cron chạy mỗi giờ và gửi một tin nhắn kiểm tra.
+
 ## 1. Tạo bot và lấy Chat ID
 
 1. Mở Telegram, nhắn `/newbot` cho `@BotFather` và lưu `BOT_TOKEN`.
