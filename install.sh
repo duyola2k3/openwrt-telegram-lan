@@ -21,10 +21,15 @@ chmod 700 "$BIN"
 
 if [ ! -s "$CONF" ]; then
     echo "=== Cấu hình Telegram OpenWrt ==="
-    printf "BOT_TOKEN: "
-    read -r BOT_TOKEN
-    printf "CHAT_IDS (cách nhau bằng dấu cách): "
-    read -r CHAT_IDS
+    # Có thể truyền sẵn khi chạy one-liner; nếu thiếu thì hỏi tương tác.
+    if [ -z "$BOT_TOKEN" ]; then
+        printf "BOT_TOKEN: "
+        read -r BOT_TOKEN
+    fi
+    if [ -z "$CHAT_IDS" ]; then
+        printf "CHAT_IDS (cách nhau bằng dấu cách): "
+        read -r CHAT_IDS
+    fi
 
     [ -n "$BOT_TOKEN" ] || { echo "BOT_TOKEN không được rỗng" >&2; exit 1; }
     [ -n "$CHAT_IDS" ] || { echo "CHAT_IDS không được rỗng" >&2; exit 1; }
